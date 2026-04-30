@@ -49,7 +49,7 @@ module ConfigLoader
     if hex.match?(/\A[0-9a-fA-F]{3}\z/) || hex.match?(/\A[0-9a-fA-F]{6}\z/)
       hex # Return the hex code
     else
-      puts "[Geode Blog] Warning: '#{value}' is not a valid hex color. Using the default value."
+      puts "[Crystal Chalk] Warning: '#{value}' is not a valid hex color. Using the default value."
       nil # Return nil
     end
   end

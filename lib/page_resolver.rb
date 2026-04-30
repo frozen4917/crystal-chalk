@@ -7,7 +7,7 @@ module PageResolver
 
     # Reject invalid slugs or attempts to access other files.
     unless slug.match?(VALID_SLUG)
-      puts "[Geode Blog] Rejected slug: '#{slug}'" unless slug == "favicon.ico"
+      puts "[Crystal Chalk] Rejected slug: '#{slug}'" unless slug == "favicon.ico"
       return nil
     end
 
@@ -19,7 +19,7 @@ module PageResolver
 
     # Assert the resolved path actually lives in pages_root directory
     unless candidate.start_with?(pages_root + File::SEPARATOR)
-      puts "[Geode Blog] Path traversal attempt blocked: '#{candidate}'"
+      puts "[Crystal Chalk] Path traversal attempt blocked: '#{candidate}'"
       return nil
     end
 

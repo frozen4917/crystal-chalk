@@ -47,7 +47,7 @@ module Renderer
         # match[1] is the captured YAML string inside '---' block
       rescue Psych::Exception => e
         # Malformed YAML. Warn but don't crash. Post still renders, just without metadata.
-        puts "[Geode Blog] Warning: bad frontmatter detected - #{e.message}"
+        puts "[Crystal Chalk] Warning: bad frontmatter detected - #{e.message}"
         meta = {}
       end
 
