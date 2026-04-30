@@ -1,19 +1,21 @@
-<h1>Posts</h1>
+<p class="index-heading">All Posts</p>
 
 <% if @posts.empty? %>
-  <p>No posts yet. Drop a .md file in the pages/ directory.</p>
+  <p class="empty-state">No posts yet. Drop a .md file in the pages/ directory.</p>
 <% else %>
-  <ul class="post-list">
+  <div class="post-grid">
     <% @posts.each do |post| %>
-      <li>
-        <a href="/<%= post[:slug] %>"><%= post[:title] %></a>
-        <% if post[:date] %>
-          <span class="date"><%= post[:date].strftime("%B %d, %Y") %></span>
-        <% end %>
+      <a href="/<%= post[:slug] %>" class="post-card">
+        <div class="post-card-top">
+          <span class="post-card-title"><%= post[:title] %></span>
+          <% if post[:date] %>
+            <span class="date-chip"><%= post[:date].strftime("%b %d, %Y") %></span>
+          <% end %>
+        </div>
         <% if !post[:description].empty? %>
-          <p class="description"><%= post[:description] %></p>
+          <p class="post-card-desc"><%= post[:description] %></p>
         <% end %>
-      </li>
+      </a>
     <% end %>
-  </ul>
+  </div>
 <% end %>

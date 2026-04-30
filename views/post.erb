@@ -1,15 +1,24 @@
 <article>
-  <h1><%= @title %></h1>
+  <div class="post-header">
+    <h1><%= @title %></h1>
 
-  <% if @date %>
-    <p class="date"><%= @date.strftime("%B %d, %Y") %></p>
-  <% end %>
+    <div class="post-meta">
+      <% if @date %>
+        <span class="post-date"><%= @date.strftime("%B %d, %Y") %></span>
+      <% end %>
+      <span class="post-reading-time"><%= @reading_time %></span>
+    </div>
 
-  <% if !@description.empty? %>
-    <p class="description"><%= @description %></p>
-  <% end %>
+    <% if !@description.empty? %>
+      <p class="post-description"><%= @description %></p>
+    <% end %>
+  </div>
 
   <div class="post-content">
     <%= @html %>
+  </div>
+
+  <div class="post-footer">
+    <a href="/" class="back-link">← All posts</a>
   </div>
 </article>

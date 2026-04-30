@@ -1,38 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= @page_title ? "#{@page_title} — #{@site_title}" : @site_title %></title>
 
+  <% if @description && !@description.empty? %>
+    <meta name="description" content="<%= @description %>">
+  <% end %>
+
   <% if @theme["favicon"] && !@theme["favicon"].empty? %>
     <link rel="icon" href="<%= @theme["favicon"] %>">
   <% end %>
 
+  <!-- Inter for UI, Lora for body text — comfortable long-form reading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/assets/styles.css">
   <link rel="stylesheet" href="/assets/rouge.css">
 
-  <!-- Inject theme colors as CSS variables so style.css can use them -->
   <style>
     :root {
       --bg: #<%= @theme["background_color"] %>;
-      --accent: #<%= @theme["accent_color"] %>;
       --text: #<%= @theme["text_color"] %>;
+      --accent: #<%= @theme["accent_color"] %>;
       --gradient: #<%= @theme["gradient_color"] %>;
     }
   </style>
 </head>
+
 <body>
-  <header>
-    <a href="/" class="site-title"><%= @site_title %></a>
-  </header>
+  <!-- Gradient strip at the top. Subtle, accent-colored, decorative. -->
+  <% if @theme["enable_gradient"] %>
+    <div class="gradient-crown"></div>
+  <% end %>
 
-  <main>
-    <%= yield %>
-  </main>
+  <div class="page-wrap">
+    <header>
+      <a href="/" class="site-title"><%= @site_title %></a>
+    </header>
 
-  <footer>
-    <p>powered by crystal chalk</p>
-  </footer>
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer>
+      <p>powered by <strong>crystal chalk</strong></p>
+    </footer>
+  </div>
 </body>
+
 </html>
