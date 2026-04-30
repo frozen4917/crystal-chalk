@@ -1,0 +1,19 @@
+<h1>Posts</h1>
+
+<% if @posts.empty? %>
+  <p>No posts yet. Drop a .md file in the pages/ directory.</p>
+<% else %>
+  <ul class="post-list">
+    <% @posts.each do |post| %>
+      <li>
+        <a href="/<%= post[:slug] %>"><%= post[:title] %></a>
+        <% if post[:date] %>
+          <span class="date"><%= post[:date].strftime("%B %d, %Y") %></span>
+        <% end %>
+        <% if !post[:description].empty? %>
+          <p class="description"><%= post[:description] %></p>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

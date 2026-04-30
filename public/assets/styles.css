@@ -1,0 +1,114 @@
+/* CSS variables set in layout.erb via theme config */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg);
+    color: #e0e0e0;
+    font-family: system-ui, sans-serif;
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+header {
+    margin-bottom: 2rem;
+}
+
+.site-title {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+.post-list {
+    list-style: none;
+}
+
+.post-list li {
+    margin-bottom: 1.5rem;
+}
+
+.post-list a {
+    color: var(--accent);
+    font-size: 1.1rem;
+}
+
+.date {
+    display: block;
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 0.2rem;
+}
+
+.description {
+    color: #aaa;
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+}
+
+article h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-content {
+    margin-top: 1.5rem;
+    line-height: 1.75;
+}
+
+.post-content h2,
+h3 {
+    margin: 1.5rem 0 0.5rem;
+}
+
+.post-content p {
+    margin-bottom: 1rem;
+}
+
+.post-content a {
+    color: var(--accent);
+}
+
+.post-content code {
+    background: #2a2a3e;
+    padding: 0.1rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.post-content pre {
+    background: #2a2a3e;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.post-content pre code {
+    background: none;
+    padding: 0;
+}
+
+footer {
+    margin-top: 3rem;
+    color: #555;
+    font-size: 0.8rem;
+}
+
+.not-found {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.not-found a {
+    color: var(--accent);
+}

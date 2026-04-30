@@ -1,0 +1,7 @@
+/log/*
+/tmp/*
+/vendor/bundle
+.DS_Store
+.vscode/
+.idea/
+.ruby-lsp/

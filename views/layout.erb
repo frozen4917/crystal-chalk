@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @page_title ? "#{@page_title} — #{@site_title}" : @site_title %></title>
+
+  <% if @theme["favicon"] && !@theme["favicon"].empty? %>
+    <link rel="icon" href="<%= @theme["favicon"] %>">
+  <% end %>
+
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/rouge.css">
+
+  <!-- Inject theme colors as CSS variables so style.css can use them -->
+  <style>
+    :root {
+      --bg: #<%= @theme["background_color"] %>;
+      --accent: #<%= @theme["accent_color"] %>;
+      --text: #<%= @theme["text_color"] %>;
+      --gradient: #<%= @theme["gradient_color"] %>;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="site-title"><%= @site_title %></a>
+  </header>
+
+  <main>
+    <%= yield %>
+  </main>
+
+  <footer>
+    <p>powered by crystal chalk</p>
+  </footer>
+</body>
+</html>

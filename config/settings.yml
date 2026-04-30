@@ -1,0 +1,11 @@
+site_title: "My Blog"
+port: 4567
+pages_dir: "pages"
+
+theme:
+  background_color: "000000" #0a0a0a
+  text_color:       "ffffff" #e8e8f0
+  accent_color:     "d973c2" #3b488d
+  gradient_color:   "f0aae1" #727fcd
+  enable_gradient:  true
+  favicon:          ""
