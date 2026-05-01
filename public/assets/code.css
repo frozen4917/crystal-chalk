@@ -1,0 +1,39 @@
+.post-content code {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.85em;
+    background: color-mix(in srgb, var(--text) 6%, transparent);
+    border: 1px solid color-mix(in srgb, var(--text) 8%, transparent);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: color-mix(in srgb, var(--text) 75%, transparent);
+}
+
+.post-content pre {
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin-bottom: 0;
+    /* border: 1px solid color-mix(in srgb, var(--text) 6%, transparent); */
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.post-content pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+}
+
+.post-content .highlight {
+    border-radius: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.post-content .highlight>pre {
+    margin: 0;
+    display: block;
+}

@@ -1,0 +1,41 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Scrollbars */
+
+::-webkit-scrollbar {
+    width: 0.4rem;
+    height: 0.4rem;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--accent) 40%, transparent);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    filter: brightness(1.3);
+}

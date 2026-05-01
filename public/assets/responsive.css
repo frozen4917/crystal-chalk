@@ -1,0 +1,23 @@
+@media (max-width: 600px) {
+    .page-wrap {
+        padding: 2rem 1.25rem 3rem;
+    }
+
+    .post-card {
+        padding: 1.1rem 0;
+    }
+
+    .post-card-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+    }
+
+    .post-content {
+        font-size: 1rem;
+    }
+
+    .post-header h1 {
+        font-size: 1.6rem;
+    }
+}
