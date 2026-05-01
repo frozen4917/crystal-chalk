@@ -1,6 +1,6 @@
 ---
 title: Example Blog
-date: 2026-04-30
+date: 2026-05-01
 description: This is a description
 ---
 
@@ -34,5 +34,13 @@ public class Hello {
     public static void main(String[] args) {
         System.out.println("Hello from Crystal Chalk!");
     }
+}
+```
+
+```c
+#include <stdio.h>
+int main() {
+    printf("Hello %d", 1+2);
+    return 0;
 }
 ```
