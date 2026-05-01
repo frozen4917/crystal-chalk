@@ -23,6 +23,15 @@ class App < Sinatra::Base
     register Sinatra::Reloader
   end
 
+  def self.parse_date(raw, filepath: nil)
+    return raw if raw.is_a?(Date)
+    return Date.parse(raw) if raw.is_a?(String)
+  rescue ArgumentError, TypeError => e
+    location = filepath ? " in #{filepath}" : ""
+    puts "[Crystal Chalk] Warning: invalid date '#{raw}'#{location}"
+    nil
+  end
+
   get "/" do
     pages_dir = @@config["pages_dir"]
 
@@ -33,10 +42,12 @@ class App < Sinatra::Base
       parsed = Renderer.parse(content)
       meta = parsed[:meta]
 
+      date = App.parse_date(meta["date"], filepath: filepath)
+
       {
         slug: File.basename(filepath, ".md"), # Strip the directory and .md
         title: meta["title"] || "Untitled",
-        date: meta["date"], # May be nil
+        date: date,
         description: meta["description"] || ""
       }
     end
@@ -70,12 +81,12 @@ class App < Sinatra::Base
     @meta = parsed[:meta]
     @html = parsed[:html]
     @title = @meta["title"] || slug # Fallback to slug if no title 
-    @date = @meta["date"]
+    @date = App.parse_date(@meta["date"], filepath: File.join(@@config["pages_dir"], slug))
     @description = @meta["description"] || ""
     @site_title = @@config["site_title"]
     @theme = @@config["theme"]
     @reading_time = "#{[(word_count / 200.0).ceil, 1].max} min read"
-
+    
     erb :post # Render the post
   end
 
