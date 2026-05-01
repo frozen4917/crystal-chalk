@@ -1,4 +1,5 @@
 require "psych"
+require_relative "utils"
 
 module ConfigLoader
   # Get the relative path to settings.yml: ../config/settings.yml
@@ -30,27 +31,14 @@ module ConfigLoader
       end
     end
 
+    theme = merged["theme"]
 
     # Normalise and validate all color fields
-    theme = merged["theme"]
-    theme["background_color"] = normalize_color(theme["background_color"]) || DEFAULTS["theme"]["background_color"]
-    theme["text_color"] = normalize_color(theme["text_color"]) || DEFAULTS["theme"]["text_color"]
-    theme["gradient_color"] = normalize_color(theme["gradient_color"]) || DEFAULTS["theme"]["gradient_color"]
-    theme["accent_color"] = normalize_color(theme["accent_color"]) || DEFAULTS["theme"]["accent_color"]
+    theme["background_color"] = Utils.normalize_color(theme["background_color"]) || DEFAULTS["theme"]["background_color"]
+    theme["text_color"] = Utils.normalize_color(theme["text_color"]) || DEFAULTS["theme"]["text_color"]
+    theme["accent_color"] = Utils.normalize_color(theme["accent_color"]) || DEFAULTS["theme"]["accent_color"]
+    theme["gradient_color"] = Utils.normalize_color(theme["gradient_color"]) || DEFAULTS["theme"]["gradient_color"]
 
     merged
-  end
-
-  def self.normalize_color(value)
-    # Strip whitespace and leading # if present
-    hex = value.to_s.strip.delete_prefix("#")
-
-    # Check for valid hex code (exactly 3 or 6 chars, all 0-9 or a-f (case-insensitive))
-    if hex.match?(/\A[0-9a-fA-F]{3}\z/) || hex.match?(/\A[0-9a-fA-F]{6}\z/)
-      hex # Return the hex code
-    else
-      puts "[Crystal Chalk] Warning: '#{value}' is not a valid hex color. Using the default value."
-      nil # Return nil
-    end
   end
 end

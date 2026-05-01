@@ -43,7 +43,7 @@ module Renderer
     if (match = FRONTMATTER_PATTERN.match(content))
       begin
         require "psych"
-        meta = Psych.safe_load(match[1], permitted_classes: [Date]) || {}
+        meta = Psych.safe_load(match[1], permitted_classes: [Date, Time]) || {}
         # match[1] is the captured YAML string inside '---' block
       rescue Psych::Exception => e
         # Malformed YAML. Warn but don't crash. Post still renders, just without metadata.
