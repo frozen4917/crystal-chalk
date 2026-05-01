@@ -62,9 +62,3 @@ module Renderer
     }
   end
 end
-
-if __FILE__ == $0
-  require "pp"
-  content = File.read("pages/hello-world.md")
-  pp Renderer.parse(content)
-end
