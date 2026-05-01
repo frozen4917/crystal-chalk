@@ -3,8 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= @page_title ? "#{@page_title} — #{@site_title}" : @site_title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title><%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %></title>
 
   <% if @description && !@description.empty? %>
     <meta name="description" content="<%= @description %>">
@@ -47,7 +47,7 @@
     </main>
 
     <footer>
-      <p>powered by <strong>crystal chalk</strong></p>
+      <p><a href="https://github.com/frozen4917/crystal-chalk" target="_blank">powered by <strong>crystal chalk</strong></a></p>
     </footer>
   </div>
 </body>

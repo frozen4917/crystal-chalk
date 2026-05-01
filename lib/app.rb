@@ -30,6 +30,7 @@ class App < Sinatra::Base
     @posts = Postloader.all(@@config)
     @site_title = @@config["site_title"]
     @theme = @@config["theme"]
+    @pages_dir = @@config["pages_dir"]
 
     erb :index # Renders views/index.erb
   end

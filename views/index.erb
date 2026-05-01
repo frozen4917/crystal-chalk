@@ -1,7 +1,7 @@
 <p class="index-heading">All Posts</p>
 
 <% if @posts.empty? %>
-  <p class="empty-state">No posts yet. Drop a .md file in the pages/ directory.</p>
+  <p class="empty-state">No posts yet. Drop a .md file in the <code><%= @pages_dir %>/</code> directory.</p>
 <% else %>
   <div class="post-grid">
     <% @posts.each do |post| %>
