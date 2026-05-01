@@ -9,3 +9,5 @@ theme:
   gradient_color:   "f0aae1" #727fcd
   enable_gradient:  true
   favicon:          ""
+
+code_theme: "github.dark"

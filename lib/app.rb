@@ -2,11 +2,13 @@ require "sinatra/base"
 require "sinatra/reloader"
 require_relative "config_loader"
 require_relative "post_loader"
+require_relative "rouge_theme"
 
 
 class App < Sinatra::Base
   # Load config once when the app starts
   @@config = ConfigLoader.load
+  RougeTheme.generate(@@config["code_theme"])
 
   # Configure Sinatra settings
   configure do

@@ -9,6 +9,7 @@ module ConfigLoader
     "site_title" => "My Blog",
     "port" => 4567,
     "pages_dir" => "pages",
+    "code_theme" => "github.dark",
     "theme" => {
       "background_color" => "1a1a2e",
       "text_color" => "e8e8f0",
