@@ -8,13 +8,15 @@ module ConfigLoader
   DEFAULTS = {
     "site_title" => "My Blog",
     "port" => 4567,
+    "site_url" => "",
+    "og_image" => "",
     "pages_dir" => "pages",
     "code_theme" => "github.dark",
     "theme" => {
       "background_color" => "1a1a2e",
       "text_color" => "e8e8f0",
       "accent_color" => "6f84d6",
-      "gradient_color":   "6c63ff",
+      "gradient_color" => "6c63ff",
       "enable_gradient" => true,
       "favicon" => ""
     }

@@ -9,6 +9,8 @@ module Postloader
 
     Dir.glob(File.join(pages_dir, "*.md")).map do |filepath|
       build_post(filepath)
+    end.reject do |post|
+      post[:draft]
     end.sort_by do |post|
       # Compare Date objects in descending order. nil is mapped to INFINITY and sinks to the bottom.
       post[:date] ? -post[:date].jd : Float::INFINITY
@@ -38,6 +40,8 @@ module Postloader
       title: meta["title"] || "Untitled",
       date: Utils.parse_date(meta["date"], filepath: File.basename(filepath)),
       description: meta["description"] || "",
+      image: meta["image"] || nil,
+      draft: meta["draft"] == true,
       html: parsed[:html],
       reading_time: Utils.reading_time(parsed[:html])
     }

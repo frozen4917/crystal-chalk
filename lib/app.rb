@@ -29,11 +29,15 @@ class App < Sinatra::Base
   get "/" do
     @posts = Postloader.all(@@config)
     @site_title = @@config["site_title"]
+    @site_url = @@config["site_url"]
+    @og_image = @@config["og_image"]
     @theme = @@config["theme"]
     @pages_dir = @@config["pages_dir"]
+    @description = @@config["site_description"] | nil
 
     erb :index # Renders views/index.erb
   end
+
 
   # Individual Post
   get "/:slug" do
@@ -45,10 +49,16 @@ class App < Sinatra::Base
     @title = post[:title]
     @date = post[:date]
     @description = post[:description]
+    @draft = post[:draft]
     @reading_time = post[:reading_time]
     @page_title = post[:title]
+    @image = post[:image]
     @site_title = @@config["site_title"]
+    @site_url = @@config["site_url"]
+    @og_image = @@config["og_image"]
     @theme = @@config["theme"]
+    @page_type = "article"
+    @show_back = true
     
     erb :post # Render the post
   end

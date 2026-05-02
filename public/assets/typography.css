@@ -130,6 +130,20 @@
     display: block;
 }
 
+.post-content img.img-small {
+    max-width: 50%;
+    min-width: min(200px, 100%);
+}
+
+.post-content img.img-medium {
+    max-width: 75%;
+    min-width: min(300px, 100%);
+}
+
+.post-content img.img-large {
+    max-width: 100%;
+}
+
 .post-content figure {
     margin: 1.75rem 0;
 }

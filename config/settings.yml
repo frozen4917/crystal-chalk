@@ -1,6 +1,9 @@
 site_title: "My Blog"
+site_url: "https://example.com/"
+og_image: ""
 port: 4567
 pages_dir: "pages"
+code_theme: "github.dark"
 
 theme:
   background_color: "000000" #0a0a0a
@@ -9,5 +12,3 @@ theme:
   gradient_color:   "f0aae1" #727fcd
   enable_gradient:  true
   favicon:          ""
-
-code_theme: "github.dark"

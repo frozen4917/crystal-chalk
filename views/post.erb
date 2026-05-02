@@ -7,18 +7,21 @@
         <span class="post-date"><%= @date.strftime("%B %d, %Y") %></span>
       <% end %>
       <span class="post-reading-time"><%= @reading_time %></span>
+      <% if @draft %>
+        <span class="draft-warn">⚠︎ You are viewing a draft!</span>
+      <% end %>
     </div>
 
     <% if !@description.empty? %>
       <p class="post-description"><%= @description %></p>
     <% end %>
+
+    <% if @image && !@image.empty? %>
+      <img src="<%= @image %>" alt="<%= @title %>" class="post-cover">
+    <% end %>
   </div>
 
   <div class="post-content">
     <%= @html %>
-  </div>
-
-  <div class="post-footer">
-    <a href="/" class="back-link">← All posts</a>
   </div>
 </article>

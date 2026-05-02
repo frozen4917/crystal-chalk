@@ -8,7 +8,23 @@ module Renderer
   class HTMLWithRouge < Redcarpet::Render::HTML 
     include Rouge::Plugins::Redcarpet
 
-    
+    def image(link, title, alt_text)
+      # Check for size modifier in alt text, e.g. "Alt|small"
+      size_class = nil
+      clean_alt = alt_text.to_s 
+
+      if clean_alt.include?("|")
+        parts = clean_alt.split("|")
+        clean_alt = parts[0].strip 
+        modifier = parts[1].strip.downcase
+        size_class = "img-#{modifier}" if %w[small medium large].include?(modifier)
+      end
+
+      css_class = size_class ? " class=\"#{size_class}\"": ""
+      title_attr = title ? " title=\"#{title}}\"" : ""
+
+      "<img src=\"#{link}\"#{title_attr} alt=\"#{clean_alt}\"#{css_class}>"
+    end
   end
 
   RENDERER = Redcarpet::Markdown.new(

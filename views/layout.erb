@@ -4,6 +4,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="<%= @page_type || 'website' %>">
+  <meta property="og:title" content="<%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %>">
+  <meta property="og:description" content="<%= @description %>">
+  <% if @site_url && !@site_url.empty? %>
+    <meta property="og:url" content="<%= @site_url %><%= request.path %>">
+  <% end %>
+  
+  <!-- OG Image -->
+
+  <!-- Fallback -->
+  <%
+    og_img = (@image && !@image.empty?) ? @image : (@og_image && !@og_image.empty? ? @og_image : nil)
+    # Resolve relative paths to absolute URLs if site_url is set
+    if og_img && !og_img.start_with?("http") && @site_url && !@site_url.empty?
+      og_img = "#{@site_url}#{og_img}"
+    end
+  %>
+
+  <% if og_img %>
+    <meta property="og:image" content="<%= og_img %>">
+    <meta name="twitter:card" content="<%= (@image && !@image.empty?) ? 'summary_large_image' : 'summary' %>">
+  <% else %>
+    <meta name="twitter:card" content="summary">
+  <% end %>
+  <meta name="twitter:title" content="<%= @page_title || @site_title %>">
+  <meta name="twitter:description" content="<%= @description %>">
+  <% if og_img %>
+    <meta name="twitter:image" content="<%= og_img %>">
+  <% end %>
+
+
   <title><%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %></title>
 
   <% if @description && !@description.empty? %>
@@ -40,6 +73,9 @@
   <div class="page-wrap">
     <header>
       <a href="/" class="site-title"><%= @site_title %></a>
+      <% if @show_back %>
+        <a href="/" class="back-link">← All posts</a>
+      <% end %>
     </header>
 
     <main>
