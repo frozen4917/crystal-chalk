@@ -2,13 +2,15 @@ require "sinatra/base"
 require "sinatra/reloader"
 require_relative "config_loader"
 require_relative "post_loader"
+require_relative "post_cache"
+require_relative "page_resolver"
 require_relative "rouge_theme"
-
 
 class App < Sinatra::Base
   # Load config once when the app starts
   @@config = ConfigLoader.load
   RougeTheme.generate(@@config["code_theme"])
+  PostCache.warm(@@config)
 
   # Configure Sinatra settings
   configure do
@@ -27,7 +29,7 @@ class App < Sinatra::Base
   
   # Index page
   get "/" do
-    @posts = Postloader.all(@@config)
+    @posts = PostCache.all
     @site_title = @@config["site_title"]
     @site_url = @@config["site_url"]
     @og_image = @@config["og_image"]
@@ -41,7 +43,13 @@ class App < Sinatra::Base
 
   # Individual Post
   get "/:slug" do
-    post = Postloader.find(params[:slug], @@config)
+    slug = params[:slug]
+
+    unless PageResolver.valid_slug?(slug)
+      halt 404
+    end
+
+    post = PostCache.find(slug)
     # Immediately stop the request and return 404 if file is not found
     halt 404 unless post
 

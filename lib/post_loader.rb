@@ -2,13 +2,13 @@ require "date"
 require_relative "renderer"
 require_relative "utils"
 
-module Postloader
+module PostLoader
   
   def self.all(config)
     pages_dir = config["pages_dir"]
 
     Dir.glob(File.join(pages_dir, "*.md")).map do |filepath|
-      build_post(filepath)
+      build(filepath)
     end.reject do |post|
       post[:draft]
     end.sort_by do |post|
@@ -25,26 +25,38 @@ module Postloader
     # Early exit if filepath not found
     return nil unless filepath
 
-    build_post(filepath)
+    build(filepath)
   end
 
-  private 
+  def self.all_with_drafts(config)
+    pages_dir = config["pages_dir"]
+    Dir.glob(File.join(pages_dir, "*.md")).map do |filepath|
+      build(filepath)
+    end.compact # Remove nil values
+  end
 
-  def self.build_post(filepath)
-    content = File.read(filepath)
-    parsed = Renderer.parse(content)
-    meta = parsed[:meta]
+  def self.build(filepath)
+    return nil unless File.file?(filepath)
 
-    {
-      slug: File.basename(filepath, ".md"),
-      title: meta["title"] || "Untitled",
-      date: Utils.parse_date(meta["date"], filepath: File.basename(filepath)),
-      description: meta["description"] || "",
-      image: meta["image"] || nil,
-      draft: meta["draft"] == true,
-      html: parsed[:html],
-      reading_time: Utils.reading_time(parsed[:html])
-    }
+    begin 
+      content = File.read(filepath)
+      parsed = Renderer.parse(content)
+      meta = parsed[:meta]
+
+      {
+        slug: File.basename(filepath, ".md"),
+        title: meta["title"] || "Untitled",
+        date: Utils.parse_date(meta["date"], filepath: File.basename(filepath)),
+        description: meta["description"] || "",
+        image: meta["image"] || nil,
+        draft: meta["draft"] == true,
+        html: parsed[:html],
+        reading_time: Utils.reading_time(parsed[:html])
+      }
+    rescue => e
+      puts "[Crystal Chalk] Error reading #{File.basename(filepath)}: #{e.message}"
+      nil
+    end
 
   end
 

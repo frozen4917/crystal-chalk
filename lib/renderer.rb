@@ -53,6 +53,9 @@ module Renderer
   FRONTMATTER_PATTERN = /\A---\s*\n(.*?)\n---\s*\n/m
 
   def self.parse(content)
+    # Normalize Windows (\r\n) and old Mac (\r) line endings to Unix (\n). Regex expects this.
+    content = content.gsub("\r\n", "\n").gsub("\r", "\n")
+
     meta = {}
     body = content
 

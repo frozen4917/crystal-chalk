@@ -27,4 +27,8 @@ module PageResolver
 
     nil # Nothing found
   end
+
+  def self.valid_slug?(slug)
+    slug.match?(VALID_SLUG)
+  end
 end
