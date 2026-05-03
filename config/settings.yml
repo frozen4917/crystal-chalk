@@ -7,9 +7,9 @@ pages_dir: "pages"
 code_theme: "github.dark"
 
 theme:
-  background_color: "000000" #0a0a0a
-  text_color:       "ffffff" #e8e8f0
-  accent_color:     "d973c2" #3b488d
-  gradient_color:   "f0aae1" #727fcd
+  background_color: "0a0a0a"
+  text_color:       "e8e8f0"
+  accent_color:     "36339e"
+  gradient_color:   "727fcd"
   enable_gradient:  true
-  favicon:          "/images/CrystalChalk.png"
+  favicon:          "favicon.ico"

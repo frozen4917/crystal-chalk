@@ -142,6 +142,7 @@
 
 .post-content img.img-large {
     max-width: 100%;
+    min-width: min(400px, 100%);
 }
 
 .post-content figure {

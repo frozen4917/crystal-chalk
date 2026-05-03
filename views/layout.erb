@@ -5,49 +5,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="<%= @page_type || 'website' %>">
-  <meta property="og:title" content="<%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %>">
-  <meta property="og:description" content="<%= @description %>">
-  <% if @site_url && !@site_url.empty? %>
-    <meta property="og:url" content="<%= @site_url %><%= request.path %>">
-  <% end %>
-  
-  <!-- OG Image -->
-
-  <!-- Fallback -->
-  <%
-    og_img = (@image && !@image.empty?) ? @image : (@og_image && !@og_image.empty? ? @og_image : nil)
-    # Resolve relative paths to absolute URLs if site_url is set
-    if og_img && !og_img.start_with?("http") && @site_url && !@site_url.empty?
-      og_img = "#{@site_url}#{og_img}"
-    end
-  %>
-
-  <% if og_img %>
-    <meta property="og:image" content="<%= og_img %>">
-    <meta name="twitter:card" content="<%= (@image && !@image.empty?) ? 'summary_large_image' : 'summary' %>">
-  <% else %>
-    <meta name="twitter:card" content="summary">
-  <% end %>
-  <meta name="twitter:title" content="<%= @page_title || @site_title %>">
-  <meta name="twitter:description" content="<%= @description %>">
-  <% if og_img %>
-    <meta name="twitter:image" content="<%= og_img %>">
-  <% end %>
-
-
   <title><%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %></title>
 
   <% if @description && !@description.empty? %>
     <meta name="description" content="<%= @description %>">
   <% end %>
 
+  <!-- Open Graph -->
+  <meta property="og:type" content="<%= @page_type || 'website' %>">
+  <meta property="og:title" content="<%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %>">
+  <meta property="og:description" content="<%= @description %>">
+  <meta property="og:url" content="<%= request.path %>">
+
+  <%
+    og_img = (@image && !@image.empty?) ? @image : (@og_image && !@og_image.empty? ? @og_image : nil)
+  %>
+
+  <% if og_img %>
+    <meta property="og:image" content="<%= og_img %>">
+    <meta name="twitter:card" content="<%= (@image && !@image.empty?) ? 'summary_large_image' : 'summary' %>">
+    <meta name="twitter:image" content="<%= og_img %>">
+  <% else %>
+    <meta name="twitter:card" content="summary">
+  <% end %>
+
+  <meta name="twitter:title" content="<%= @page_title || @site_title %>">
+  <meta name="twitter:description" content="<%= @description %>">
+
   <% if @theme["favicon"] && !@theme["favicon"].empty? %>
     <link rel="icon" href="<%= @theme["favicon"] %>">
   <% end %>
 
-  <!-- Inter for UI, Lora for body text — comfortable long-form reading -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -56,16 +45,16 @@
 
   <style>
     :root {
-      --bg: #<%= @theme["background_color"] %>;
-      --text: #<%= @theme["text_color"] %>;
-      --accent: #<%= @theme["accent_color"] %>;
+      --bg:       #<%= @theme["background_color"] %>;
+      --text:     #<%= @theme["text_color"] %>;
+      --accent:   #<%= @theme["accent_color"] %>;
       --gradient: #<%= @theme["gradient_color"] %>;
     }
   </style>
 </head>
 
 <body>
-  <!-- Gradient strip at the top. Subtle, accent-colored, decorative. -->
+  <!-- Gradient strip at the top. Subtle, decorative. -->
   <% if @theme["enable_gradient"] %>
     <div class="gradient-crown"></div>
   <% end %>

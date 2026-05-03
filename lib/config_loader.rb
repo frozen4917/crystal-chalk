@@ -14,12 +14,12 @@ module ConfigLoader
     "pages_dir" => "pages",
     "code_theme" => "github.dark",
     "theme" => {
-      "background_color" => "1a1a2e",
+      "background_color" => "0a0a0a",
       "text_color" => "e8e8f0",
-      "accent_color" => "6f84d6",
-      "gradient_color" => "6c63ff",
+      "accent_color" => "36339e",
+      "gradient_color" => "727fcd",
       "enable_gradient" => true,
-      "favicon" => ""
+      "favicon" => "favicon.ico"
     }
   }.freeze
 
