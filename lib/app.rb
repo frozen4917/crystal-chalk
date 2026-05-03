@@ -6,6 +6,7 @@ require_relative "post_cache"
 require_relative "page_resolver"
 require_relative "rouge_theme"
 
+
 class App < Sinatra::Base
   # Load config once when the app starts
   @@config = ConfigLoader.load
@@ -35,7 +36,7 @@ class App < Sinatra::Base
     @og_image = @@config["og_image"]
     @theme = @@config["theme"]
     @pages_dir = @@config["pages_dir"]
-    @description = @@config["site_description"] | nil
+    @description = @@config["site_description"]
 
     erb :index # Renders views/index.erb
   end

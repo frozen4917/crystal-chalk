@@ -7,9 +7,10 @@ module ConfigLoader
 
   DEFAULTS = {
     "site_title" => "My Blog",
-    "port" => 4567,
+    "site_description" => "A blog powered by Crystal Chalk",
     "site_url" => "",
     "og_image" => "",
+    "port" => 4567,
     "pages_dir" => "pages",
     "code_theme" => "github.dark",
     "theme" => {

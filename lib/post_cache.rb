@@ -23,7 +23,12 @@ module PostCache
     end
 
     puts "[Crystal Chalk] Cached #{@cache.size} post(s)."
-    start_watcher(pages_dir)
+
+    if ENV['APP_ENV'] != 'production'
+      start_watcher(pages_dir)
+    else
+      puts "[Crystal Chalk] File watcher disabled in production."
+    end
   end
 
   def self.all

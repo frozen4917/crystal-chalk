@@ -1,4 +1,5 @@
 site_title: "My Blog"
+site_description: "A blog powered by Crystal Chalk"
 site_url: "https://example.com/"
 og_image: ""
 port: 4567
@@ -11,4 +12,4 @@ theme:
   accent_color:     "d973c2" #3b488d
   gradient_color:   "f0aae1" #727fcd
   enable_gradient:  true
-  favicon:          ""
+  favicon:          "/images/CrystalChalk.png"
