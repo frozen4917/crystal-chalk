@@ -9,6 +9,7 @@ module ConfigLoader
     "site_title" => "My Blog",
     "site_description" => "A blog powered by Crystal Chalk",
     "site_url" => "",
+    "extra_hosts" => [],
     "og_image" => "",
     "port" => 4567,
     "pages_dir" => "pages",

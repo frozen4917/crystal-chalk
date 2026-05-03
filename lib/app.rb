@@ -8,23 +8,42 @@ require_relative "rouge_theme"
 
 
 class App < Sinatra::Base
-  # Load config once when the app starts
+  # Load config, generate rouge theme, warm post cache
   @@config = ConfigLoader.load
   RougeTheme.generate(@@config["code_theme"])
   PostCache.warm(@@config)
 
+  # Derive allowed hosts from site_url + extra_hosts at class load time
+  require "uri"
+  @@allowed_hosts = begin
+    primary_host = URI.parse(@@config["site_url"]).host if @@config["site_url"] && !@@config["site_url"].empty?
+    extra_hosts  = @@config["extra_hosts"] || []
+    ([primary_host] + extra_hosts).compact.reject(&:empty?)
+  rescue URI::InvalidURIError
+    puts "[Crystal Chalk] Warning: invalid site_url in settings.yml"
+    []
+  end
+
   # Configure Sinatra settings
   configure do
     set :port, @@config["port"]
-    set :bind, "0.0.0.0" # Listen on all interfaces 
+    set :bind, "0.0.0.0"
     set :views, File.join(__dir__, "..", "views")
     set :public_folder, File.join(__dir__, "..", "public")
     set :show_exceptions, false
   end
 
-  # Enable hot reloading in development only
   configure :development do
     register Sinatra::Reloader
+    set :protection, false
+  end
+
+  configure :production do
+    set :logging, false
+    # In production, host authorization is enforced.
+    # Set site_url in settings.yml. The host is derived automatically.
+    # Add extra_hosts for www variants or additional domains.
+    set :allowed_hosts, @@allowed_hosts + ["localhost", "127.0.0.1"] unless @@allowed_hosts.empty?
   end
 
   
