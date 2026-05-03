@@ -36,14 +36,16 @@ class App < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
     set :protection, false
+    set :host_authorization, { permitted_hosts: [] }
   end
 
   configure :production do
     set :logging, false
-    # In production, host authorization is enforced.
-    # Set site_url in settings.yml. The host is derived automatically.
-    # Add extra_hosts for www variants or additional domains.
-    set :allowed_hosts, @@allowed_hosts + ["localhost", "127.0.0.1"] unless @@allowed_hosts.empty?
+    if @@allowed_hosts.empty?
+      set :host_authorization, { permitted_hosts: [] }
+    else
+      set :host_authorization, { permitted_hosts: @@allowed_hosts + ["localhost", "127.0.0.1"] }
+    end
   end
 
   
