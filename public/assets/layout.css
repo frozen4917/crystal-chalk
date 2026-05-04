@@ -1,3 +1,5 @@
+/* --- Gradient crown --- */
+
 .gradient-crown {
     position: absolute;
     top: 0;
@@ -10,6 +12,8 @@
     pointer-events: none;
     z-index: 0;
 }
+
+/* --- Page structure --- */
 
 .page-wrap {
     max-width: 720px;
@@ -26,6 +30,8 @@
 main {
     flex: 1;
 }
+
+/* --- Header --- */
 
 header {
     margin-bottom: 3.5rem;
@@ -49,6 +55,8 @@ header {
     color: var(--accent);
 }
 
+/* --- Footer --- */
+
 footer {
     margin-top: 3rem;
     padding-top: 1.5rem;
@@ -69,6 +77,7 @@ footer a:hover {
     color: color-mix(in srgb, var(--accent) 50%, transparent);
 }
 
+/* Renders the Crystal Chalk logo inline using a mask over a currentColor block. This lets it inherit colour from its parent for free. */
 .crystal-icon {
     display: inline-block;
     width: 1.1rem;

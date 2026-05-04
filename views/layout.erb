@@ -12,24 +12,27 @@
   <% end %>
 
   <!-- Open Graph -->
-  <meta property="og:type" content="<%= @page_type || 'website' %>">
-  <meta property="og:title" content="<%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %>">
+  <meta property="og:type"        content="<%= @page_type || 'website' %>">
+  <meta property="og:title"       content="<%= @page_title ? "#{@page_title} - #{@site_title}" : @site_title %>">
   <meta property="og:description" content="<%= @description %>">
-  <meta property="og:url" content="<%= request.path %>">
+  <%# og:url should be the full absolute URL. site_url is empty in dev so this degrades gracefully %>
+  <meta property="og:url"         content="<%= @site_url + request.path %>">
 
   <%
+    # Use the post's own image if present, otherwise fall back to the global og_image.
+    # A post-specific image gets twitter:card summary_large_image; the fallback gets summary.
     og_img = (@image && !@image.empty?) ? @image : (@og_image && !@og_image.empty? ? @og_image : nil)
   %>
 
   <% if og_img %>
-    <meta property="og:image" content="<%= og_img %>">
-    <meta name="twitter:card" content="<%= (@image && !@image.empty?) ? 'summary_large_image' : 'summary' %>">
-    <meta name="twitter:image" content="<%= og_img %>">
+    <meta property="og:image"       content="<%= og_img %>">
+    <meta name="twitter:card"       content="<%= (@image && !@image.empty?) ? 'summary_large_image' : 'summary' %>">
+    <meta name="twitter:image"      content="<%= og_img %>">
   <% else %>
     <meta name="twitter:card" content="summary">
   <% end %>
 
-  <meta name="twitter:title" content="<%= @page_title || @site_title %>">
+  <meta name="twitter:title"       content="<%= @page_title || @site_title %>">
   <meta name="twitter:description" content="<%= @description %>">
 
   <% if @theme["favicon"] && !@theme["favicon"].empty? %>
@@ -43,6 +46,7 @@
 
   <link rel="stylesheet" href="/assets/main.css">
 
+  <%# Theme colors are injected as CSS variables so all stylesheets can reference them %>
   <style>
     :root {
       --bg:       #<%= @theme["background_color"] %>;

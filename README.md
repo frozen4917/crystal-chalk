@@ -67,7 +67,7 @@ Everything lives in [`config/settings.yml`](config/settings.yml):
 |-------|-------------|---------|
 | `site_title` | Displayed in the header and browser tab | `"My Blog"` |
 | `site_description` | Used in OG meta tags for the index page | `""` |
-| `site_url` | Full URL of your blog, used for host authorisation in production | `""` |
+| `site_url` | Full URL of your blog, used for host authorisation in production or OG tags. E.g. "https://blog.site.com/" | `""` |
 | `extra_hosts` | Additional allowed hostnames, e.g. www variants | `[]` |
 | `og_image` | Fallback OG image for the index page | `""` |
 | `port` | Port the server listens on | `4567` |
@@ -112,7 +112,7 @@ rake clean          # Delete generated rouge.css
 See [ADVANCED.md](ADVANCED.md) for full deployment instructions, including Caddy, Nginx, systemd, and subdomain setup.
 
 > [!WARNING]
-> In production, set `site_url` in `settings.yml` to your blog's full URL. Crystal Chalk uses this to enforce host authorisation and block unauthorised requests.
+> In production, set `site_url` in `settings.yml` to your blog's full URL. Crystal Chalk uses this to enforce host authorisation, block unauthorised requests, and for OG tags.
 
 ---
 

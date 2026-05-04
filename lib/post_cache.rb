@@ -3,15 +3,12 @@ require_relative "post_loader"
 
 module PostCache 
   @cache = {}
-
-  # Mutex prevents race conditions by preventing read and write to a cache at the same time
+  # Mutex prevents concurrent reads and writes to @cache from the watcher thread.
   @mutex = Mutex.new
 
+  # Loads all posts (including drafts) into @cache and starts the file watcher in development.
   def self.warm(config)
-    # Load posts from config
-    @config = config 
     pages_dir = config["pages_dir"]
-
     # Load everything, including drafts
     posts = PostLoader.all_with_drafts(config)
 
@@ -31,35 +28,35 @@ module PostCache
     end
   end
 
+  # Returns all non-draft posts sorted newest first. Undated posts sink to the bottom.
   def self.all
-    # Return all non-drafts softed by date descending.
     @mutex.synchronize do 
       @cache.values
     end.reject { |p| p[:draft] }
       .sort_by { |p| p[:date] ? -p[:date].jd : Float::INFINITY }
   end
 
+  # Returns a post from cache
   def self.find(slug)
-    # Returns a post
     @mutex.synchronize { @cache[slug] }
   end
 
   private 
 
+  # Watches pages_dir for .md changes and hot-reloads the cache without a server restart.
   def self.start_watcher(pages_dir)
     listener = Listen.to(pages_dir, only: /\.md$/) do |modified, added, removed|
-      # Listen yields three arrays: changed files, new files, deleted files. Each is an array of absolute file paths.
       modified.each { |path| reload(path, :modified) }
-      added.each { |path| reload(path, :added) }
-      removed.each { |path| remove(path) }
+      added.each    { |path| reload(path, :added) }
+      removed.each  { |path| remove(path) }
     end
 
     # Run the watcher in a background thread.
     listener.start
-
     puts "[Crystal Chalk] Watching #{pages_dir}/ for changes."
   end
 
+  # Re-parses a file and updates its entry in the cache
   def self.reload(filepath, reason)
     slug = File.basename(filepath, ".md")
     post = PostLoader.build(filepath)
@@ -70,6 +67,7 @@ module PostCache
     end
   end
 
+  # Removes a deleted file's entry from the cache.
   def self.remove(filepath)
     slug = File.basename(filepath, ".md")
     @mutex.synchronize { @cache.delete(slug) }

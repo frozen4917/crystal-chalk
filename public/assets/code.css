@@ -1,3 +1,5 @@
+/* --- Inline Code --- */
+
 .post-content code {
     font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
     font-size: 0.85em;
@@ -8,16 +10,18 @@
     color: color-mix(in srgb, var(--text) 75%, transparent);
 }
 
+/* --- Code blocks --- */
+
 .post-content pre {
     border-radius: 8px;
     padding: 1.25rem 1.5rem;
     overflow-x: auto;
     margin-bottom: 0;
-    /* border: 1px solid color-mix(in srgb, var(--text) 6%, transparent); */
     font-size: 0.88rem;
     line-height: 1.65;
 }
 
+/* Reset inline code styles when inside a block */
 .post-content pre code {
     background: none;
     border: none;
@@ -26,6 +30,7 @@
     color: inherit;
 }
 
+/* Rouge wraps blocks in .highlight. Handle scroll and spacing here */
 .post-content .highlight {
     border-radius: 8px;
     overflow-x: auto;

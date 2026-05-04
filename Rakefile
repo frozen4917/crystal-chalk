@@ -1,4 +1,3 @@
-# Default task: Runs dev
 task default: :dev 
 
 desc "Start server in development mode"
@@ -15,7 +14,6 @@ end
 
 desc "Print all registered routes"
 task :routes do
-  # Prints all registered Sinatra routes without starting the server.
   require_relative "lib/app"
   puts "\nRegistered routes:"
   App.routes.each do |method, routes|

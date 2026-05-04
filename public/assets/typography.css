@@ -1,3 +1,5 @@
+/* --- Post body --- */
+
 .post-content {
     font-family: 'Lora', Georgia, serif;
     font-size: 1.05rem;
@@ -8,6 +10,8 @@
 .post-content p {
     margin-bottom: 1.4rem;
 }
+
+/* --- Headings --- */
 
 .post-content h2 {
     font-family: 'Inter', system-ui, sans-serif;
@@ -34,6 +38,8 @@
     margin: 1.5rem 0 0.5rem;
 }
 
+/* --- Inline text --- */
+
 .post-content a {
     color: var(--accent);
     text-decoration: underline;
@@ -55,6 +61,8 @@
     font-style: italic;
 }
 
+/* --- Thematic break --- */
+
 .post-content hr {
     border: none;
     height: 1px;
@@ -64,6 +72,8 @@
             transparent);
     margin: 2.5rem 0;
 }
+
+/* --- Blockquote --- */
 
 .post-content blockquote {
     border-left: 3px solid var(--accent);
@@ -76,6 +86,8 @@
 .post-content blockquote p {
     margin-bottom: 0;
 }
+
+/* --- Lists --- */
 
 .post-content ul,
 .post-content ol {
@@ -90,6 +102,8 @@
 .post-content li::marker {
     color: color-mix(in srgb, var(--text) 30%, transparent);
 }
+
+/* --- Tables --- */
 
 .post-content table {
     width: 100%;
@@ -122,6 +136,8 @@
     background: color-mix(in srgb, var(--text) 2%, transparent);
 }
 
+/* --- Images --- */
+
 .post-content img {
     max-width: 100%;
     height: auto;
@@ -130,6 +146,7 @@
     display: block;
 }
 
+/* Size modifiers set via alt text: ![Alt|small](url) */
 .post-content img.img-small {
     max-width: 50%;
     min-width: min(200px, 100%);
@@ -144,6 +161,8 @@
     max-width: 100%;
     min-width: min(400px, 100%);
 }
+
+/* --- Figures --- */
 
 .post-content figure {
     margin: 1.75rem 0;

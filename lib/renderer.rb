@@ -3,13 +3,13 @@ require "rouge"
 require "rouge/plugins/redcarpet"
 
 module Renderer 
-  # Custom HTML Renderer extended with Rouge's plugin for syntax highlighting
-
+  # Custom HTML renderer that adds Rouge syntax highlighting and image size modifiers.
   class HTMLWithRouge < Redcarpet::Render::HTML 
     include Rouge::Plugins::Redcarpet
 
+    # Supports an optional size modifier in alt text. E.g. ![Alt text|small](url)
+    # Valid modifiers: small, medium, large
     def image(link, title, alt_text)
-      # Check for size modifier in alt text, e.g. "Alt|small"
       size_class = nil
       clean_alt = alt_text.to_s 
 
@@ -21,7 +21,7 @@ module Renderer
       end
 
       css_class = size_class ? " class=\"#{size_class}\"": ""
-      title_attr = title ? " title=\"#{title}}\"" : ""
+      title_attr = title ? " title=\"#{title}\"" : ""
 
       "<img src=\"#{link}\"#{title_attr} alt=\"#{clean_alt}\"#{css_class}>"
     end
@@ -40,20 +40,16 @@ module Renderer
     strikethrough: true,      # ~~striked text~~
     tables: true,             # MD Tables
     no_intra_emphasis: true,
-    lax_spacing: true   # allows lists without a preceding blank line
+    lax_spacing: true         # allows lists without a preceding blank line
   ).freeze
 
-  # Frontmatter is the optional YAML block at the top of a .md file between two --- delimiters. Like this:
-  #   ---
-  #   title: My Post
-  #   date: 2026-04-30
-  #   description: A short summary
-  #   ---
-  # This regex captures everything between the two --- lines.
+  # YAML frontmatter block at the top of the .md file, between --- delimiters
   FRONTMATTER_PATTERN = /\A---\s*\n(.*?)\n---\s*\n/m
 
+  # Parses a mardown file into { meta: ..., html: ...}
+  # Strips front matter before rendering; bad YAML warns but doesn't crash
   def self.parse(content)
-    # Normalize Windows (\r\n) and old Mac (\r) line endings to Unix (\n). Regex expects this.
+    # Normalize line endings before regex matching
     content = content.gsub("\r\n", "\n").gsub("\r", "\n")
 
     meta = {}
@@ -65,7 +61,7 @@ module Renderer
         meta = Psych.safe_load(match[1], permitted_classes: [Date, Time]) || {}
         # match[1] is the captured YAML string inside '---' block
       rescue Psych::Exception => e
-        # Malformed YAML. Warn but don't crash. Post still renders, just without metadata.
+        # Malformed YAML. Warn but don't crash.
         puts "[Crystal Chalk] Warning: bad frontmatter detected - #{e.message}"
         meta = {}
       end

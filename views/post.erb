@@ -12,7 +12,7 @@
       <% end %>
     </div>
 
-    <% if !@description.empty? %>
+    <% unless @description.nil? || @description.empty? %>
       <p class="post-description"><%= @description %></p>
     <% end %>
 

@@ -1,4 +1,5 @@
-/* Index */
+/* --- Index --- */
+
 .index-heading {
     font-size: 0.72rem;
     font-weight: 600;
@@ -82,7 +83,8 @@
     padding: 2rem 0;
 }
 
-/* Post page header */
+/* --- Post header --- */
+
 .post-header {
     margin-bottom: 2.5rem;
     padding-bottom: 2rem;
@@ -143,7 +145,8 @@
     text-shadow: 1px 0 0 var(--accent);
 }
 
-/* 404 */
+/* --- 404 --- */
+
 .not-found {
     text-align: center;
     padding: 5rem 0;

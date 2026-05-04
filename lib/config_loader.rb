@@ -24,11 +24,15 @@ module ConfigLoader
     }
   }.freeze
 
+  # Loads settings.yml and merges it over DEFAULTS.
+  # Nested hashes (e.g. theme) are merged key-by-key so partial overrides work. 
+  # All color fields are normalised and validated; invalid values fall back to defaults.
   def self.load 
     raw = Psych.safe_load(File.read(SETTINGS_PATH), permitted_classes: []) || {}
 
     # Merge Defaults and user's settings from config.yml
     merged = DEFAULTS.merge(raw) do |key, default_val, user_val|
+      # Deep merge one level down for nested hashes like theme
       if default_val.is_a?(Hash) && user_val.is_a?(Hash)
         default_val.merge(user_val)
       else
@@ -36,13 +40,12 @@ module ConfigLoader
       end
     end
 
-    theme = merged["theme"]
-
     # Normalise and validate all color fields
-    theme["background_color"] = Utils.normalize_color(theme["background_color"]) || DEFAULTS["theme"]["background_color"]
-    theme["text_color"] = Utils.normalize_color(theme["text_color"]) || DEFAULTS["theme"]["text_color"]
-    theme["accent_color"] = Utils.normalize_color(theme["accent_color"]) || DEFAULTS["theme"]["accent_color"]
-    theme["gradient_color"] = Utils.normalize_color(theme["gradient_color"]) || DEFAULTS["theme"]["gradient_color"]
+    theme = merged["theme"]
+    theme["background_color"] = Utils.normalize_color(theme["background_color"])  || DEFAULTS["theme"]["background_color"]
+    theme["text_color"]       = Utils.normalize_color(theme["text_color"])        || DEFAULTS["theme"]["text_color"]
+    theme["accent_color"]     = Utils.normalize_color(theme["accent_color"])      || DEFAULTS["theme"]["accent_color"]
+    theme["gradient_color"]   = Utils.normalize_color(theme["gradient_color"])    || DEFAULTS["theme"]["gradient_color"]
 
     merged
   end
