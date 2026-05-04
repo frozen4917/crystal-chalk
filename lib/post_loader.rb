@@ -36,8 +36,7 @@ module PostLoader
       {
         slug:         File.basename(filepath, ".md"),
         title:        meta["title"] || "Untitled",
-        date:         Utils.parse_date(meta["date"], 
-        filepath:     File.basename(filepath)),
+        date:         Utils.parse_date(meta["date"], filepath: File.basename(filepath)),
         description:  meta["description"] || "",
         image:        meta["image"] || nil,
         draft:        meta["draft"] == true,
